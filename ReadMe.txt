@@ -19,11 +19,11 @@ A member can enrole in the following classes:
 - LES MILIS GRIT
 - Spin
 
-Each class cost £30 to enrole
+Each class cost £20 to enrole
 
 Member should be able to see their balance
 
-Member should be able to see their status, Name, ID, courses enrolled and balance
+Member should be able to see their status, Name, ID, classes enrolled and balance
 
 
 ## Getting Started
