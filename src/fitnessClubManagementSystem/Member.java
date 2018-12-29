@@ -10,6 +10,7 @@ public class Member {
 	private static int id = 1000;
 	private String memberID;
 	private String classes = "";
+	private int payment;
 	private int balance;
 	// Static because it belongs to the class not the instance of the class
 	private static int costOfClass = 20;
@@ -28,13 +29,8 @@ public class Member {
 		this.lastName = input.nextLine();
 		
 		setMemberID();
-		enroll();
-		payForClasses(20);
 		
-		System.out.println(firstName + " " + lastName + " " + memberID);
-		
-		
-		
+				
 	}
 	
 	public void setMemberID () {
@@ -43,13 +39,13 @@ public class Member {
 		
 	}
 	
-	private void enroll() {
+	public void enroll() {
 		do {
-			System.out.println("Please enter the class in which you would like to enroll, (Q to quit). ");
+			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (Q to quit). ");
 			Scanner input = new Scanner(System.in);
 			String classTaken = input.nextLine();
 			if (!classTaken.equals("Q")) {
-				classes = classes + "\n" + classTaken; 
+				classes = classes + "\n " + classTaken; 
 				balance = balance + costOfClass;
 			}
 			else {
@@ -57,21 +53,29 @@ public class Member {
 			}
 		} while (1 !=0);
 		
-		System.out.println("Enrolled in " + classes);
-		System.out.println("Account balance £" + balance);
-		
+		//System.out.println("Your balance is £" + balance);
 	}
 	
 	public void viewAccountBalance() {
 		System.out.println("Your balance is £"+balance);
 	}
 	
-	public void payForClasses(int payment) {
+	public void payForClasses() {
+		viewAccountBalance();
+		System.out.println("Please enter the amount that you wish to pay in GBP. ");
+		Scanner input = new Scanner(System.in);
+		int payment = input.nextInt(); 
 		
 		balance = balance - payment;
-		System.out.println("Thank you for your payment of £"+payment+" your balance is now £"+ balance);
-		viewAccountBalance();
-		
+		System.out.println("Thank you for your payment of £"+payment);
+		//viewAccountBalance();
+				
+	}
+	
+	public String toString() {
+		return "Member details: \n " + firstName + " " + lastName + "\n membership ID: " + memberID
+				+ "\nYou're enrolled in: " + classes + 
+				"\nYour account balance is £" + balance; 
 	}
 
 }
