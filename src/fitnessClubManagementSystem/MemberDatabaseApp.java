@@ -1,8 +1,10 @@
 package fitnessClubManagementSystem;
 
+import java.io.IOException;
+
 public class MemberDatabaseApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Member member1 = new Member();
 		

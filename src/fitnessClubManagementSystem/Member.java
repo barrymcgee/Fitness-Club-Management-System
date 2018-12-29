@@ -1,11 +1,16 @@
 package fitnessClubManagementSystem;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Member {
 	
 	private String firstName;
 	private String lastName;
+	private String nameCapitalised;
+	private String lastNameCap;
 	// Static because it belongs to the class not the instance of the class
 	private static int id = 1000;
 	private String memberID;
@@ -16,22 +21,49 @@ public class Member {
 	private static int costOfClass = 20;
 	
 	/*
-	 * default constructor
+	 * default constructor asking for names
 	 */
-	public Member() {
+	public Member() throws IOException {
 		
-		Scanner input = new Scanner(System.in);
+		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Please enter your first name");
-		this.firstName = input.nextLine();
+		String firstName = "";
+		boolean isFirstName = false;
 		
-		System.out.println("Please enter your last name");
-		this.lastName = input.nextLine();
+		do {
+			System.out.println("Please enter your first name");
+			this.firstName = input.readLine();
+			String s1 = this.firstName.substring(0, 1).toUpperCase();
+			nameCapitalised = s1 + this.firstName.substring(1);
+			if (nameCapitalised.isEmpty()|| nameCapitalised.matches(".*\\d+.*")) {
+				isFirstName = false;
+				System.out.println("you must enter a name to proceed.");
+			}else {
+				isFirstName = true;
+			}
+		} while (isFirstName == false);
+		
+		
+		String lastName = "";
+		boolean isLastName = false;
+		
+		do {
+			System.out.println("Please enter your last name");
+			this.lastName = input.readLine();
+			String s2 = this.lastName.substring(0, 1).toUpperCase();
+			lastNameCap = s2 + this.lastName.substring(1);
+			if (lastNameCap.isEmpty()|| lastNameCap.matches(".*\\d+.*")) {
+				isLastName = false;
+				System.out.println("you must enter a name to proceed.");
+			}else {
+				isLastName = true;
+			}
+		} while (isLastName == false);
 		
 		setMemberID();
 		
-				
-	}
+	}		
+	
 	
 	public void setMemberID () {
 		id++;
@@ -44,7 +76,7 @@ public class Member {
 			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (Q to quit). ");
 			Scanner input = new Scanner(System.in);
 			String classTaken = input.nextLine();
-			if (!classTaken.equals("Q")) {
+			if ((!classTaken.equalsIgnoreCase("Q"))) {
 				classes = classes + "\n " + classTaken; 
 				balance = balance + costOfClass;
 			}
@@ -73,7 +105,7 @@ public class Member {
 	}
 	
 	public String toString() {
-		return "Member details: \n " + firstName + " " + lastName + "\n membership ID: " + memberID
+		return "Member details: \n " + nameCapitalised + " " + lastNameCap + "\n membership ID: " + memberID
 				+ "\nYou're enrolled in: " + classes + 
 				"\nYour account balance is £" + balance; 
 	}
