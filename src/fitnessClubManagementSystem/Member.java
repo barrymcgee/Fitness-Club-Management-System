@@ -37,7 +37,7 @@ public class Member {
 			nameCapitalised = s1 + this.firstName.substring(1);
 			if (nameCapitalised.isEmpty()|| nameCapitalised.matches(".*\\d+.*")) {
 				isFirstName = false;
-				System.out.println("you must enter a name to proceed.");
+				System.out.println("you must enter a name that contains only letters to proceed.");
 			}else {
 				isFirstName = true;
 			}
@@ -54,7 +54,7 @@ public class Member {
 			lastNameCap = s2 + this.lastName.substring(1);
 			if (lastNameCap.isEmpty()|| lastNameCap.matches(".*\\d+.*")) {
 				isLastName = false;
-				System.out.println("you must enter a name to proceed.");
+				System.out.println("you must enter a name that contains only letters to proceed.");
 			}else {
 				isLastName = true;
 			}
@@ -73,11 +73,36 @@ public class Member {
 	
 	public void enroll() {
 		do {
-			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (Q to quit). ");
+			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (0 to quit). ");
+			System.out.println("\tBody-pump \t(Press 1)");
+			System.out.println("\tYoga \t\t(Press 2)");
+			System.out.println("\tLES MILIS GRIT \t(Press 3)");
+			System.out.println("\tSpin \t\t(Press 4)");
+			
 			Scanner input = new Scanner(System.in);
-			String classTaken = input.nextLine();
-			if ((!classTaken.equalsIgnoreCase("Q"))) {
-				classes = classes + "\n " + classTaken; 
+			int classTaken = input.nextInt();
+			switch (classTaken) {
+			case 1:
+				System.out.println("Body-pump");
+				classes = "Body-pump";
+				break;
+			case 2:
+				System.out.println("Yoga");
+				classes = "Yoga";
+				break;
+			case 3:
+				System.out.println("LES MILIS GRIT");
+				classes = "LES MILIS GRIT";
+				break;
+			case 4:
+				System.out.println("Spin");
+				classes = "Spin";
+				break;
+			
+			}
+			
+			if (classTaken != 0) {
+				classes = classes + "\n" + classes; 
 				balance = balance + costOfClass;
 			}
 			else {
@@ -85,7 +110,7 @@ public class Member {
 			}
 		} while (1 !=0);
 		
-		//System.out.println("Your balance is £" + balance);
+		
 	}
 	
 	public void viewAccountBalance() {
@@ -104,9 +129,10 @@ public class Member {
 				
 	}
 	
+	
 	public String toString() {
 		return "Member details: \n " + nameCapitalised + " " + lastNameCap + "\n membership ID: " + memberID
-				+ "\nYou're enrolled in: " + classes + 
+				+ "\nYou're enrolled in: " + "\n "+ classes + 
 				"\nYour account balance is £" + balance; 
 	}
 
