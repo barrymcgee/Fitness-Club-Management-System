@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Member {
@@ -17,10 +16,6 @@ public class Member {
 	private static int id = 1000;
 	private String memberID;
 	private String classes = "";
-	private String ClassBodyPump = "Body-Pump";
-	private String ClassYoga = "Yoga";
-	private String ClassLesMils = "Les Milis Grit";
-	private String ClassSpin = "Spin";
 	private int payment;
 	private int balance;
 	// Static because it belongs to the class not the instance of the class
@@ -67,21 +62,18 @@ public class Member {
 		} while (isLastName == false);
 		
 		setMemberID();
-		
 	}		
 	
 	
 	public void setMemberID () {
 		id++;
-		this.memberID = lastName + id;
-		
+		this.memberID = lastName.toLowerCase() + id;
 	}
 	
 	public void enroll() {
 		ArrayList<String> gymClasses = new ArrayList<String>();
 		
 		do {
-			
 			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (0 to quit). ");
 			System.out.println("\tBody-pump \t(Press 1)");
 			System.out.println("\tYoga \t\t(Press 2)");
@@ -95,45 +87,32 @@ public class Member {
 			case 1:
 				
 				gymClasses.add("Body-pump");
-				classes = ClassBodyPump;
 				break;
 			case 2:
 				gymClasses.add("Yoga");
-				classes = ClassYoga;
 				break;
 			case 3:
 				gymClasses.add("LES MILIS GRIT");
-				classes = "LES MILIS GRIT";
 				break;
 			case 4:
 				gymClasses.add("Spin");
-				classes = "Spin";
 				break;
 			
 			}
-						
 			
 			if (classTaken != 0) {
 				
 				
 				System.out.println("List of classes selected "+ gymClasses);
-				String[] listOfClasses = gymClasses.toArray(new String[0]);
-				System.out.println("Classes taken are " + Arrays.toString(listOfClasses));
 				
-				String.join("", gymClasses);
-				classes = gymClasses + "\t";
+				classes = String.join(", ", gymClasses);
 				
 				balance = balance + costOfClass;
 				}
-			
-			
-				
 			else {
 			break;	
 			}
 		} while (1 !=0);
-		
-		
 	}
 	
 	public void viewAccountBalance() {
@@ -149,9 +128,7 @@ public class Member {
 		balance = balance - payment;
 		System.out.println("Thank you for your payment of £"+payment);
 		//viewAccountBalance();
-				
 	}
-	
 	
 	public String displayInfo() {
 		return "Member details: \n " + nameCapitalised + " " + lastNameCap + "\n membership ID: " + memberID
