@@ -3,6 +3,8 @@ package fitnessClubManagementSystem;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Member {
@@ -15,6 +17,10 @@ public class Member {
 	private static int id = 1000;
 	private String memberID;
 	private String classes = "";
+	private String ClassBodyPump = "Body-Pump";
+	private String ClassYoga = "Yoga";
+	private String ClassLesMils = "Les Milis Grit";
+	private String ClassSpin = "Spin";
 	private int payment;
 	private int balance;
 	// Static because it belongs to the class not the instance of the class
@@ -72,7 +78,10 @@ public class Member {
 	}
 	
 	public void enroll() {
+		ArrayList<String> gymClasses = new ArrayList<String>();
+		
 		do {
+			
 			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (0 to quit). ");
 			System.out.println("\tBody-pump \t(Press 1)");
 			System.out.println("\tYoga \t\t(Press 2)");
@@ -81,30 +90,44 @@ public class Member {
 			
 			Scanner input = new Scanner(System.in);
 			int classTaken = input.nextInt();
+			
 			switch (classTaken) {
 			case 1:
-				System.out.println("Body-pump");
-				classes = "Body-pump";
+				
+				gymClasses.add("Body-pump");
+				classes = ClassBodyPump;
 				break;
 			case 2:
-				System.out.println("Yoga");
-				classes = "Yoga";
+				gymClasses.add("Yoga");
+				classes = ClassYoga;
 				break;
 			case 3:
-				System.out.println("LES MILIS GRIT");
+				gymClasses.add("LES MILIS GRIT");
 				classes = "LES MILIS GRIT";
 				break;
 			case 4:
-				System.out.println("Spin");
+				gymClasses.add("Spin");
 				classes = "Spin";
 				break;
 			
 			}
+						
 			
 			if (classTaken != 0) {
-				classes = classes + "\n" + classes; 
+				
+				
+				System.out.println("List of classes selected "+ gymClasses);
+				String[] listOfClasses = gymClasses.toArray(new String[0]);
+				System.out.println("Classes taken are " + Arrays.toString(listOfClasses));
+				
+				String.join("", gymClasses);
+				classes = gymClasses + "\t";
+				
 				balance = balance + costOfClass;
-			}
+				}
+			
+			
+				
 			else {
 			break;	
 			}
@@ -130,9 +153,9 @@ public class Member {
 	}
 	
 	
-	public String toString() {
+	public String displayInfo() {
 		return "Member details: \n " + nameCapitalised + " " + lastNameCap + "\n membership ID: " + memberID
-				+ "\nYou're enrolled in: " + "\n "+ classes + 
+				+ "\nYou're enrolled in:" + "\n "+ classes + 
 				"\nYour account balance is £" + balance; 
 	}
 

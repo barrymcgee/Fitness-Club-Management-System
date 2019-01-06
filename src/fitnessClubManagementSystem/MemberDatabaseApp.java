@@ -11,7 +11,7 @@ public class MemberDatabaseApp {
 		member1.enroll();
 		//member1.viewAccountBalance();
 		member1.payForClasses();
-		System.out.println(member1.toString());
+		System.out.println(member1.displayInfo());
 
 	}
 
