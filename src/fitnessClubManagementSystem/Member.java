@@ -3,6 +3,8 @@ package fitnessClubManagementSystem;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Member {
@@ -15,6 +17,10 @@ public class Member {
 	private static int id = 1000;
 	private String memberID;
 	private String classes = "";
+	private String ClassBodyPump = "Body-Pump";
+	private String ClassYoga = "Yoga";
+	private String ClassLesMils = "Les Milis Grit";
+	private String ClassSpin = "Spin";
 	private int payment;
 	private int balance;
 	// Static because it belongs to the class not the instance of the class
@@ -37,7 +43,7 @@ public class Member {
 			nameCapitalised = s1 + this.firstName.substring(1);
 			if (nameCapitalised.isEmpty()|| nameCapitalised.matches(".*\\d+.*")) {
 				isFirstName = false;
-				System.out.println("you must enter a name to proceed.");
+				System.out.println("you must enter a name that contains only letters to proceed.");
 			}else {
 				isFirstName = true;
 			}
@@ -54,7 +60,7 @@ public class Member {
 			lastNameCap = s2 + this.lastName.substring(1);
 			if (lastNameCap.isEmpty()|| lastNameCap.matches(".*\\d+.*")) {
 				isLastName = false;
-				System.out.println("you must enter a name to proceed.");
+				System.out.println("you must enter a name that contains only letters to proceed.");
 			}else {
 				isLastName = true;
 			}
@@ -72,20 +78,62 @@ public class Member {
 	}
 	
 	public void enroll() {
+		ArrayList<String> gymClasses = new ArrayList<String>();
+		
 		do {
-			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (Q to quit). ");
+			
+			System.out.println("\nPlease enter the class or classes in which you would like to enroll, (0 to quit). ");
+			System.out.println("\tBody-pump \t(Press 1)");
+			System.out.println("\tYoga \t\t(Press 2)");
+			System.out.println("\tLES MILIS GRIT \t(Press 3)");
+			System.out.println("\tSpin \t\t(Press 4)");
+			
 			Scanner input = new Scanner(System.in);
-			String classTaken = input.nextLine();
-			if ((!classTaken.equalsIgnoreCase("Q"))) {
-				classes = classes + "\n " + classTaken; 
-				balance = balance + costOfClass;
+			int classTaken = input.nextInt();
+			
+			switch (classTaken) {
+			case 1:
+				
+				gymClasses.add("Body-pump");
+				classes = ClassBodyPump;
+				break;
+			case 2:
+				gymClasses.add("Yoga");
+				classes = ClassYoga;
+				break;
+			case 3:
+				gymClasses.add("LES MILIS GRIT");
+				classes = "LES MILIS GRIT";
+				break;
+			case 4:
+				gymClasses.add("Spin");
+				classes = "Spin";
+				break;
+			
 			}
+						
+			
+			if (classTaken != 0) {
+				
+				
+				System.out.println("List of classes selected "+ gymClasses);
+				String[] listOfClasses = gymClasses.toArray(new String[0]);
+				System.out.println("Classes taken are " + Arrays.toString(listOfClasses));
+				
+				String.join("", gymClasses);
+				classes = gymClasses + "\t";
+				
+				balance = balance + costOfClass;
+				}
+			
+			
+				
 			else {
 			break;	
 			}
 		} while (1 !=0);
 		
-		//System.out.println("Your balance is £" + balance);
+		
 	}
 	
 	public void viewAccountBalance() {
@@ -104,9 +152,10 @@ public class Member {
 				
 	}
 	
-	public String toString() {
+	
+	public String displayInfo() {
 		return "Member details: \n " + nameCapitalised + " " + lastNameCap + "\n membership ID: " + memberID
-				+ "\nYou're enrolled in: " + classes + 
+				+ "\nYou're enrolled in:" + "\n "+ classes + 
 				"\nYour account balance is £" + balance; 
 	}
 
